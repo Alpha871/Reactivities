@@ -9,19 +9,18 @@ import {
   CardMeta,
   Image,
 } from "semantic-ui-react";
-import { Activity } from "../../../app/Models/activity";
+import { useStore } from "../../../app/stores/store";
 
-interface Prop {
-  activity: Activity;
-  cancelSelectActivity: () => void;
-  openForm: (id: string) => void;
-}
+export default function ActivityDetails() {
+  const { activityStore } = useStore();
+  const {
+    selectedActivity: activity,
+    openForm,
+    cancelSelectedActivity,
+  } = activityStore;
 
-export default function ActivityDetails({
-  activity,
-  cancelSelectActivity,
-  openForm,
-}: Prop) {
+  if (!activity) return;
+
   return (
     <Card fluid>
       <Image
@@ -45,7 +44,7 @@ export default function ActivityDetails({
             content="Edit"
           />
           <Button
-            onClick={cancelSelectActivity}
+            onClick={cancelSelectedActivity}
             basic
             color="grey"
             content="Cancel"
