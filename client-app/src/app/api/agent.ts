@@ -33,8 +33,8 @@ axios.interceptors.response.use(
             if (data.errors[key]) {
               modalStateErrors.push(data.errors[key]);
             }
-            throw modalStateErrors.flat();
           }
+          throw modalStateErrors.flat();
         } else {
           toast.error(data);
         }
