@@ -5,7 +5,7 @@ import { v4 as uuid } from "uuid";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Activity } from "../../../app/Models/activity";
+import { ActivityFormValues } from "../../../app/Models/activity";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -17,25 +17,14 @@ import MyDateInput from "./MyDateInput";
 
 export default observer(function ActivityForm() {
   const { activityStore } = useStore();
-  const {
-    loading,
-    createActivity,
-    updateActivity,
-    loadActivity,
-    loadingInitial,
-  } = activityStore;
+  const { createActivity, updateActivity, loadActivity, loadingInitial } =
+    activityStore;
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [activity, setActivity] = useState<Activity>({
-    id: "",
-    title: "",
-    category: "",
-    description: "",
-    date: null,
-    city: "",
-    venue: "",
-  });
+  const [activity, setActivity] = useState<ActivityFormValues>(
+    new ActivityFormValues()
+  );
 
   const validationSchema = Yup.object({
     title: Yup.string().required("The activity title is required"),
@@ -48,12 +37,14 @@ export default observer(function ActivityForm() {
 
   useEffect(() => {
     if (id) {
-      loadActivity(id).then((activity) => setActivity(activity!));
+      loadActivity(id).then((activity) =>
+        setActivity(new ActivityFormValues(activity))
+      );
     }
   }, [id, loadActivity]);
 
-  function handleFromSubmit(activity: Activity) {
-    if (activity.id.length === 0) {
+  function handleFromSubmit(activity: ActivityFormValues) {
+    if (!activity.id) {
       const newActivity = {
         ...activity,
         id: uuid(),
@@ -102,7 +93,7 @@ export default observer(function ActivityForm() {
             <MyTextInput placeholder="City" name="city" />
             <MyTextInput placeholder="Venue" name="venue" />
             <Button
-              loading={loading}
+              loading={isSubmitting}
               floated="right"
               positive
               type="submit"
