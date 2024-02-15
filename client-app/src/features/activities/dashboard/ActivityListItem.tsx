@@ -22,10 +22,8 @@ interface Props {
 }
 
 export default function ActivityListItem({ activity }: Props) {
-  const [target, setTarget] = useState("");
   const { activityStore } = useStore();
-  const { deleteActivity, loading } = activityStore;
-  console.log(activity.isHost);
+  const { deleteActivity } = activityStore;
 
   function handleActivityDelete(
     e: SyntheticEvent<HTMLButtonElement>,

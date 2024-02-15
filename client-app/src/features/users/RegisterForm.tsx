@@ -56,7 +56,7 @@ export default observer(function RegisterForm() {
             disabled={!isValid || !dirty || isSubmitting}
             loading={isSubmitting}
             positive
-            content={"Register " + isValid}
+            content="Register "
             type="submit"
             fluid
           />

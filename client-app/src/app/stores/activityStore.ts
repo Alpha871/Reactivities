@@ -81,8 +81,6 @@ export default class ActivityStore {
 
       activity.isHost = activity.hostUsername === user.username;
 
-      console.log(activity.attendees);
-
       activity.host = activity.attendees?.find(
         (x) => x.username === activity.hostUsername
       );
