@@ -38,7 +38,6 @@ export default class UserStore {
     runInAction(() => (this.user = user));
     router.navigate("/activities");
     store.modalStore.closeModal();
-    console.log(user);
   };
 
   getUser = async () => {
@@ -48,5 +47,9 @@ export default class UserStore {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  setImage = (image: string) => {
+    if (this.user) this.user.image = image;
   };
 }
