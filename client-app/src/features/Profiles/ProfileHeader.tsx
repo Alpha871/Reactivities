@@ -4,10 +4,8 @@ import {
   Grid,
   Header,
   Item,
-  Reveal,
   Segment,
   Statistic,
-  Button,
 } from "semantic-ui-react";
 import { Profile } from "../../app/Models/profile";
 import { observer } from "mobx-react-lite";

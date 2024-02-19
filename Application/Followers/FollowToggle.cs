@@ -20,7 +20,7 @@ namespace Application.Followers
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
         {
-        private readonly IUserAccessor _userAccessor;
+             private readonly IUserAccessor _userAccessor;
              private readonly DataContext _context;
             public Handler(DataContext context, IUserAccessor userAccessor)
             {
