@@ -25,10 +25,32 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseMiddleware<ExceptionMiddleware>();
 
+app.UseXContentTypeOptions();
+app.UseReferrerPolicy(option => option.NoReferrer());
+app.UseXXssProtection(option => option.EnabledWithBlockMode());
+app.UseXfo(option => option.Deny());
+app.UseCsp(option => 
+    option
+        .BlockAllMixedContent()
+        .StyleSources(s=> s.Self().CustomSources("https://fonts.googleapis.com"))
+        .FontSources(s =>s.Self().CustomSources("https://fonts.gstatic.com","data:"))
+        .FormActions(s => s.Self())
+        .FrameAncestors(s => s.Self())
+        .ImageSources(s=>s.Self().CustomSources("blob:","https://res.cloudinary.com"))
+        .ScriptSources(s=>s.Self())
+        
+    );
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+else {
+    app.Use(async (context, next) => {
+        context.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000");
+        await next.Invoke();
+    });
 }
 
 app.UseCors("CorsPolicy");
@@ -36,10 +58,14 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 
 
 app.MapControllers();
 app.MapHub<ChatHub>("/chat");
+app.MapFallbackToController("Index", "Fallback");
 
 using var scope=app.Services.CreateScope();
 var services = scope.ServiceProvider;

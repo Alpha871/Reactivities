@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Segment, Button, Header } from "semantic-ui-react";
 import { v4 as uuid } from "uuid";
 

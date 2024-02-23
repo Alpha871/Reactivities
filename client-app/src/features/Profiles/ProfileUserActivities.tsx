@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React, { SyntheticEvent, useEffect } from "react";
+import { useEffect } from "react";
 import { useStore } from "../../app/stores/store";
 import { Grid, Header, Tab, TabPane, TabProps } from "semantic-ui-react";
 import ActivityTab from "./ActivityTab";
@@ -28,7 +28,7 @@ export default observer(function ProfileUserActivities() {
     loadUserActivities(profile!.username);
   }, [loadUserActivities, profile]);
 
-  function handleTabChange(e: SyntheticEvent, data: TabProps) {
+  function handleTabChange(data: TabProps) {
     loadUserActivities(
       profile!.username,
       panes[data.activeIndex as number].pane.key
@@ -45,7 +45,7 @@ export default observer(function ProfileUserActivities() {
           <Tab
             menu={{ secondary: true, pointing: true }}
             panes={panes}
-            onTabChange={(e, data) => handleTabChange(e, data)}
+            onTabChange={(_, data) => handleTabChange(data)}
           />
           <br />
           <ActivityTab Activity={userActivities} />

@@ -1,4 +1,3 @@
-import React from "react";
 import { Profile } from "../../app/Models/profile";
 import { observer } from "mobx-react-lite";
 import { Card, Icon, Image } from "semantic-ui-react";

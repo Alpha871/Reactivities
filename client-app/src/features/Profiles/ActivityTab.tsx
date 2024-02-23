@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import React from "react";
+
 import { Card, GridColumn } from "semantic-ui-react";
 import { UserActivity } from "../../app/Models/userActivity";
 import ActivityCard from "./ActivityCard";

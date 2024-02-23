@@ -14,11 +14,11 @@ const sleep = (delay: number) => {
   });
 };
 
-axios.defaults.baseURL = "http://localhost:5000/api";
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
 axios.interceptors.response.use(
   async (response) => {
-    await sleep(1000);
+    if (import.meta.env.DEV) await sleep(1000);
     const pagination = response.headers["pagination"];
 
     if (pagination) {
@@ -87,16 +87,17 @@ axios.interceptors.request.use((config) => {
 
 const requests = {
   get: <T>(url: string) => axios.get<T>(url).then(responseBody),
-  post: <T>(url: string, body: {}) =>
+  post: <T>(url: string, body: object) =>
     axios.post<T>(url, body).then(responseBody),
-  put: <T>(url: string, body: {}) => axios.put<T>(url, body).then(responseBody),
+  put: <T>(url: string, body: object) =>
+    axios.put<T>(url, body).then(responseBody),
   del: <T>(url: string) => axios.delete<T>(url).then(responseBody),
 };
 
 const Activities = {
   list: (params: URLSearchParams) =>
     axios
-      .get<PaginatedResult<Activity>>("/activities", { params })
+      .get<PaginatedResult<Activity[]>>("/activities", { params })
       .then(responseBody),
   details: (id: string) => requests.get<Activity>(`/activities/${id}`),
   create: (activity: ActivityFormValues) =>

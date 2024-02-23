@@ -22,7 +22,6 @@ export default class UserStore {
     runInAction(() => (this.user = user));
     router.navigate("/activities");
     store.modalStore.closeModal();
-    console.log(user);
   };
 
   logout = async () => {

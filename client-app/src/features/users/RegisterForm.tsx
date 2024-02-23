@@ -1,9 +1,7 @@
 import { ErrorMessage, Form, Formik } from "formik";
-
 import MyTextInput from "../../app/common/form/MyTextInput";
 import { Button, Header } from "semantic-ui-react";
 import { useStore } from "../../app/stores/store";
-
 import { observer } from "mobx-react-lite";
 import * as Yup from "yup";
 import ValidationError from "../error/ValidationError";
@@ -21,7 +19,7 @@ export default observer(function RegisterForm() {
         error: null,
       }}
       onSubmit={(values, { setErrors }) =>
-        userStore.login(values).catch((error) => setErrors({ error }))
+        userStore.register(values).catch((error) => setErrors({ error }))
       }
       validationSchema={Yup.object({
         displayName: Yup.string().required(),

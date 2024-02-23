@@ -1,5 +1,3 @@
-import React from "react";
-
 import { observer } from "mobx-react-lite";
 import { Card, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
