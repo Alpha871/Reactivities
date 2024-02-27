@@ -45,7 +45,7 @@ export default function ActivityListItem({ activity }: Props) {
               style={{ marginBottom: 5 }}
               size="tiny"
               circular
-              src={activity.host?.image || "/assets/ersu.png"}
+              src={activity.host?.image || "/assets/user.png"}
             />
             <ItemContent>
               <ItemHeader as={Link} to={`/activities/${activity.id}`}>

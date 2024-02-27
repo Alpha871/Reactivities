@@ -43,7 +43,8 @@ namespace Infrastructure.Security
 
             if(attendee == null) return Task.CompletedTask;
             
-            if(attendee.IsHost) context.Succeed(requirement);
+            if(attendee.IsHost) context.Succeed(requirement); 
+           
 
             return Task.CompletedTask;
         }
