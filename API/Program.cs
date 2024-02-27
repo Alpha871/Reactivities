@@ -1,7 +1,6 @@
 using API.Extensions;
 using API.Middleware;
 using API.SignalR;
-using Application.Core;
 using Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -77,7 +76,7 @@ try
     await context.Database.MigrateAsync();
     await Seed.SeedData(context, userManager);
 }
-catch (System.Exception ex)
+catch (Exception ex)
 {
     var logger = services.GetRequiredService<ILogger<Program>>();
     logger.LogError(ex, "An error occured during migration");

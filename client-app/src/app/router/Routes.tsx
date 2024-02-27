@@ -19,7 +19,7 @@ export const routes: RouteObject[] = [
       {
         element: <RequireAuth />,
         children: [
-          { path: "", element: <HomePage /> },
+          { path: "/", element: <HomePage /> },
           { path: "activities", element: <ActivityDashboard /> },
           { path: "activities/:id", element: <ActivityDetails /> },
           { path: "createActivity", element: <ActivityForm key="create" /> },

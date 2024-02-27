@@ -8,13 +8,21 @@ import { Photo, Profile } from "../Models/profile";
 import { PaginatedResult } from "../Models/pagination";
 import { UserActivity } from "../Models/userActivity";
 
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+
+axios.interceptors.request.use((config) => {
+  const token = store.commonStore.token;
+
+  if (token && config.headers) config.headers.Authorization = `Bearer ${token}`;
+
+  return config;
+});
+
 const sleep = (delay: number) => {
   return new Promise((resolve) => {
     setTimeout(resolve, delay);
   });
 };
-
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
 axios.interceptors.response.use(
   async (response) => {
@@ -87,14 +95,6 @@ axios.interceptors.response.use(
 );
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
-
-axios.interceptors.request.use((config) => {
-  const token = store.commonStore.token;
-
-  if (token && config.headers) config.headers.Authorization = `Bearer ${token}`;
-
-  return config;
-});
 
 const requests = {
   get: <T>(url: string) => axios.get<T>(url).then(responseBody),
