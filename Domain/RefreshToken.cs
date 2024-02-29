@@ -10,9 +10,9 @@ namespace Domain
         public string Token { get; set; }
         public DateTime Expires { get; set; } = DateTime.UtcNow.AddDays(7);
 
-        public bool isExpired => DateTime.UtcNow >= Expires;
+        public bool IsExpired => DateTime.UtcNow >= Expires;
 
         public DateTime? Revoked { get; set; }
-        public bool  IsActive => Revoked == null && !isExpired;
+        public bool  IsActive => Revoked == null && !IsExpired;
     }
 }

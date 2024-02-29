@@ -43,7 +43,6 @@ namespace Application.Activities
                     if(request.Params.IsGoing && !request.Params.IsHost) {
                         query = query.Where(x => x.Attendees
                                 .Any(a => a.Username == _userAccessor.GetUsername()));
-
                     }
 
                     if(request.Params.IsHost && !request.Params.IsGoing) {

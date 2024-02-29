@@ -19,7 +19,6 @@ namespace Application.Followers
         public class Query : IRequest<Result<List<Profiles.Profile>>> {
             public string Predicate {get;set;}
             public string Username {get;set;}
-
         }
 
         public class Handler : IRequestHandler<Query, Result<List<Profiles.Profile>>>
